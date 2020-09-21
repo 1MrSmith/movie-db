@@ -1,0 +1,23 @@
+.section-card {
+  width: 100%;
+  display: flex;
+  padding: 4rem 1.5rem;
+
+  &__image {
+    width: 20rem;
+    height: 25rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0.6rem;
+    background-size: cover;
+  }
+
+  &__description {
+    padding-left: 2rem;
+  }
+}
+
+.page {
+  padding: 4rem 0;
+  text-align: center;
+}
