@@ -4,7 +4,7 @@ import React, {
   useState,
   useCallback,
 } from 'react';
-import { Form, FormControl } from 'react-bootstrap';
+import { Form, FormControl, InputGroup } from 'react-bootstrap';
 import debounce from '../../utils/debounce';
 import { useAppContext } from '../AppContext';
 import config from '../../config';
@@ -32,11 +32,20 @@ const SearchBox = () => {
       inline
       className='pr-3'>
 
-        <FormControl
-        type='text'
-        placeholder='Search'
-        name='search'
-        onChange={handleChange} />
+        <InputGroup
+        className={style['search-box']}>
+          <InputGroup.Prepend>
+            <InputGroup.Text id='pre-text'>@</InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl
+            type='text'
+            placeholder='Search'
+            className={style['search-box__input']}
+            name='search'
+            aria-describedby='pre-text'
+            onChange={handleChange} />
+        </InputGroup>
+
       </Form>
 
     </Fragment>
