@@ -1,6 +1,6 @@
 import React, { Fragment, memo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAppContext } from '../../components/AppContext';
+import { useAppContext } from '../AppContext';
 import asyncLocalStorage from '../../services/local-storage.service';
 import SideBar from '../SideBar';
 import NavBar from '../NavBar';

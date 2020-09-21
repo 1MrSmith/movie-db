@@ -7,7 +7,7 @@ import React, {
 import { useHistory } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import { getPopularById } from '../../services/rest.service';
-import { useAppContext } from '../../components/AppContext';
+import { useAppContext } from '../AppContext';
 import error from '../../utils/error';
 import config from '../../config';
 import style from './style.module.scss';

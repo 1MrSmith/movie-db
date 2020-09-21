@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
-import { useAppContext } from '../../components/AppContext';
+import { useAppContext } from '../AppContext';
 import { getPopular } from '../../services/rest.service';
 import markResponseVideos from '../../utils/mark-response-videos';
 import asyncLocalStorage from '../../services/local-storage.service';

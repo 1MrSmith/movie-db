@@ -13,7 +13,7 @@ import {
   faSignOutAlt,
   faAddressBook,
 } from '@fortawesome/free-solid-svg-icons';
-import { useAppContext } from '../../components/AppContext';
+import { useAppContext } from '../AppContext';
 import config from '../../config';
 import style from './style.module.scss';
 

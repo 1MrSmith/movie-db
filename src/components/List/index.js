@@ -1,6 +1,6 @@
 import React, { Fragment, memo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAppContext } from '../../components/AppContext';
+import { useAppContext } from '../AppContext';
 import Card from '../Card';
 import config from '../../config';
 import Pagination from 'pagination-component';

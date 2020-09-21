@@ -4,7 +4,7 @@ import React, {
   useEffect,
 } from 'react';
 import { Spinner } from 'react-bootstrap';
-import { useAppContext } from '../../components/AppContext';
+import { useAppContext } from '../AppContext';
 import { useHistory, useParams } from 'react-router-dom';
 import { getPopular } from '../../services/rest.service';
 import markResponseVideos from '../../utils/mark-response-videos';

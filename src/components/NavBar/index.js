@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import { NavLink } from 'react-router-dom';
 import { NavItem } from 'react-bootstrap';
-import { useAppContext } from '../../components/AppContext';
+import { useAppContext } from '../AppContext';
 import SearchBox from '../SearchBox';
 import config from '../../config';
 import style from './style.module.scss';

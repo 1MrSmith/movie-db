@@ -6,7 +6,7 @@ import {
   FormControl,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { useAppContext } from '../../components/AppContext';
+import { useAppContext } from '../AppContext';
 import error from '../../utils/error';
 import asyncLocalStorage from '../../services/local-storage.service';
 import useInputForm from '../../hooks/useInputForm';
