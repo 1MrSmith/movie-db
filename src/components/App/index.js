@@ -35,32 +35,30 @@ const App = () => {
   }, [isAuthenticated]);
 
   return (
-    <div className='mt-3'>
-      <AppContext.Provider
-        value={{
-          tvs,
-          movies,
-          setTvs,
-          runPush,
-          tvPages,
-          isLoading,
-          setMovies,
-          setRunPush,
-          moviePages,
-          setTvPages,
-          searchString,
-          setIsLoading,
-          setMoviePages,
-          isAuthenticated,
-          userSearchString,
-          userHasAuthenticated,
-        }}>
-          <Router history={history}>
-            <NavBar />
-            <Routes />
-          </Router>
-      </AppContext.Provider>
-    </div>
+    <AppContext.Provider
+      value={{
+        tvs,
+        movies,
+        setTvs,
+        runPush,
+        tvPages,
+        isLoading,
+        setMovies,
+        setRunPush,
+        moviePages,
+        setTvPages,
+        searchString,
+        setIsLoading,
+        setMoviePages,
+        isAuthenticated,
+        userSearchString,
+        userHasAuthenticated,
+      }}>
+        <Router history={history}>
+          <NavBar />
+          <Routes />
+        </Router>
+    </AppContext.Provider>
   );
 }
 

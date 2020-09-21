@@ -2,11 +2,12 @@ import React, { Fragment, memo, useState, useCallback } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { Navbar, Nav, NavItem, Form, FormControl } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faFileVideo, faVideo, faAddressBook, faSignInAlt, faSignOutAlt, faHamburger } from '@fortawesome/free-solid-svg-icons';
 import { useAppContext } from '../../components/AppContext';
 import debounce from '../../utils/debounce';
 import asyncLocalStorage from '../../services/local-storage.service';
 import config from '../../config';
+import style from './style.module.scss';
 
 const NavBar = () => {
   const { isAuthenticated, userHasAuthenticated, userSearchString } = useAppContext();
@@ -39,120 +40,167 @@ const NavBar = () => {
 
   return (
     <Fragment>
-      <Navbar
-        bg='light'
-        fixed='top'
-        expand='lg'>
+        <div
+        className={style['nav-bar']}>
+        {isAuthenticated
+        ? <Fragment>
 
-          <Navbar.Toggle
-          aria-controls='basic-navbar-nav' />
+            <Form
+            inline
+            className='pr-3'>
+              <FormControl
+              type='text'
+              placeholder='Search'
+              name='search'
+              onChange={handleChange} />
+            </Form>
 
-          <Navbar.Collapse
-          id='basic-navbar-nav'>
+            <NavItem
+            className='pt-1'
+            onClick={handleLogout}>
 
-            <Nav
-            className='mr-auto'>
+              <NavLink
+              activeclassname='text-body font-weight-bold'
+              className='text-muted'
+              onClick={cleanUp}
+              to={config.routes.login.url}>{config.routes.logout.title}</NavLink>
 
-              <Navbar.Brand>
+            </NavItem>
 
-                <NavLink
-                activeClassName='text-body'
-                className='text-muted'
-                onClick={cleanUp}
-                to={config.routes.home.url}>
+          </Fragment>
 
-                  <FontAwesomeIcon
-                  size='lg'
-                  icon={faHome}/>
+        : <NavItem>
 
-                </NavLink>
+            <NavLink
+            activeclassname='text-body font-weight-bold'
+            className='text-muted'
+            onClick={cleanUp}
+            to={config.routes.login.url}>{config.routes.login.title}</NavLink>
 
-              </Navbar.Brand>
+          </NavItem>
+        }
 
-            </Nav>
+        </div>
 
-            <Nav
-            className='pullRight'>
+        <nav className={style['side-bar']}>
 
-              {isAuthenticated
-              ? <Fragment>
-
-                  <Form
-                  inline
-                  className='pr-3'>
-                    <FormControl
-                    type='text'
-                    placeholder='Search'
-                    name='search'
-                    onChange={handleChange} />
-                  </Form>
-
-                  <NavItem
-                  className='pt-1'>
-
-                    <NavLink
-                    activeClassName='text-body font-weight-bold'
-                    className='text-muted pr-3'
-                    onClick={cleanUp}
-                    to={config.routes.movie.url}>{config.routes.movie.title}</NavLink>
-
-                  </NavItem>
-
-                  <NavItem
-                  className='pt-1'>
-
-                    <NavLink
-                    activeClassName='text-body font-weight-bold'
-                    className='text-muted pr-3'
-                    onClick={cleanUp}
-                    to={config.routes.tvShow.url}>{config.routes.tvShow.title}</NavLink>
-
-                  </NavItem>
-
-                  <NavItem
-                  className='pt-1'>
-
-                    <NavLink
-                    activeClassName='text-body font-weight-bold'
-                    className='text-muted pr-3'
-                    onClick={cleanUp}
-                    to={config.routes.myLibrary.url}>{config.routes.myLibrary.title}</NavLink>
-
-                  </NavItem>
-
-                  <NavItem
-                  className='pt-1'
-                  onClick={handleLogout}>
-
-                    <NavLink
-                    activeClassName='text-body font-weight-bold'
-                    className='text-muted'
-                    onClick={cleanUp}
-                    to={config.routes.login.url}>{config.routes.logout.title}</NavLink>
-
-                  </NavItem>
-
-                </Fragment>
-
-              : <NavItem>
+          <ul>
+            <li>
+              <div className={style['logo']}>
+                <FontAwesomeIcon
+                size='lg'
+                icon={faHamburger}/>
+              </div>
+            </li>
+          {isAuthenticated
+            ? <Fragment>
+                <li>
 
                   <NavLink
-                  activeClassName='text-body font-weight-bold'
-                  className='text-muted'
+                  activeclassname='text-body font-weight-bold'
+                  className='text-muted pr-3'
                   onClick={cleanUp}
-                  to={config.routes.login.url}>{config.routes.login.title}</NavLink>
+                  to={config.routes.home.url}>
+                    <FontAwesomeIcon
+                    size='lg'
+                    icon={faHome}/>
+                    <span className={style['nav-text']}>{config.routes.home.title}</span>
 
-                </NavItem>
-              }
+                    </NavLink>
 
-            </Nav>
+                </li>
 
-          </Navbar.Collapse>
+                <li>
 
-        </Navbar>
+                  <NavLink
+                  activeclassname='text-body font-weight-bold'
+                  className='text-muted pr-3'
+                  onClick={cleanUp}
+                  to={config.routes.movie.url}>
+                    <FontAwesomeIcon
+                    size='lg'
+                    icon={faFileVideo}/>
+                    <span className={style['nav-text']}>{config.routes.movie.title}</span>
+
+                  </NavLink>
+
+                </li>
+
+                <li>
+
+                  <NavLink
+                  activeclassname='text-body font-weight-bold'
+                  className='text-muted pr-3'
+                  onClick={cleanUp}
+                  to={config.routes.tvShow.url}>
+                    <FontAwesomeIcon
+                    size='lg'
+                    icon={faVideo}/>
+                    <span className={style['nav-text']}>{config.routes.tvShow.title}</span>
+
+                  </NavLink>
+
+                </li>
+
+                <li>
+
+                  <NavLink
+                  activeclassname='text-body font-weight-bold'
+                  className='text-muted pr-3'
+                  onClick={cleanUp}
+                  to={config.routes.myLibrary.url}>
+                    <FontAwesomeIcon
+                    size='lg'
+                    icon={faAddressBook}/>
+                    <span className={style['nav-text']}>{config.routes.myLibrary.title}</span>
+
+                  </NavLink>
+
+                </li>
+
+                <li
+                onClick={handleLogout}>
+
+                  <NavLink
+                  activeclassname='text-body font-weight-bold'
+                  className='text-muted pr-3'
+                  onClick={cleanUp}
+                  to={config.routes.login.url}>
+                    <FontAwesomeIcon
+                    size='lg'
+                    icon={faSignOutAlt}/>
+                    <span className={style['nav-text']}>{config.routes.logout.title}</span>
+
+                  </NavLink>
+
+                </li>
+
+              </Fragment>
+
+            : <li
+              onClick={handleLogout}>
+
+              <NavLink
+              activeclassname='text-body font-weight-bold'
+              className='text-muted pr-3'
+              onClick={cleanUp}
+              to={config.routes.login.url}>
+                <FontAwesomeIcon
+                size='lg'
+                icon={faSignInAlt}/>
+                <span className={style['nav-text']}>{config.routes.login.title}</span>
+
+              </NavLink>
+
+            </li>
+            }
+
+          </ul>
+
+        </nav>
 
     </Fragment>
-  
+
   );
 }
 
