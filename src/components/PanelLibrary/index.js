@@ -8,7 +8,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useAppContext } from '../AppContext';
 import { getPopularById } from '../../services/rest.service';
 import markResponseVideos from '../../utils/mark-response-videos';
-import getQuantityPages from '../../utils/getQuantityPages';
+import getQuantityPages from '../../utils/get-quantity-pages';
 import asyncLocalStorage from '../../services/local-storage.service';
 import error from '../../utils/error';
 import config from '../../config';
