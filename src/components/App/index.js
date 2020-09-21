@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Router } from 'react-router-dom';
 import Routes from '../../routes';
-import NavBar from '../NavBar';
+import Bars from '../Bars';
 import history from '../../utils/history';
 import { AppContext } from '../AppContext';
 import asyncLocalStorage from '../../services/local-storage.service';
@@ -55,7 +55,7 @@ const App = () => {
         userHasAuthenticated,
       }}>
         <Router history={history}>
-          <NavBar />
+          <Bars />
           <Routes />
         </Router>
     </AppContext.Provider>
