@@ -128,7 +128,7 @@ const TabSearch = ({ typeVideo, activeTab }) => {
         </div>
 
       : <div
-        className={style['page']}>
+        className={style['page__spinner']}>
 
           <Spinner
           animation='border'

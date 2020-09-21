@@ -7,7 +7,7 @@ import style from './style.module.scss';
 
 const Card = (props) => {
   const history = useHistory();
- 
+
   const onChange = async (event) => {
 
     const id = event.target.name;

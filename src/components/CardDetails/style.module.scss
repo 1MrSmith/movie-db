@@ -1,10 +1,9 @@
 .section-card {
   width: 100%;
   display: flex;
-  padding: 4rem 1.5rem;
+  padding: 5rem 1.5rem 4rem 4.5rem;
 
   &__image {
-    width: 20rem;
     height: 25rem;
     display: flex;
     justify-content: space-between;
@@ -13,11 +12,11 @@
   }
 
   &__description {
-    padding-left: 2rem;
+    padding: 0 0 2rem 2rem;
   }
 }
 
 .page {
-  padding: 4rem 0;
+  padding: 5rem 0;
   text-align: center;
 }
