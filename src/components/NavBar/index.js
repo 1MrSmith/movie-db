@@ -1,31 +1,17 @@
 import React, {
   Fragment,
   memo,
-  useState,
-  useCallback,
 } from 'react';
 import { NavLink } from 'react-router-dom';
-import {NavItem, Form, FormControl } from 'react-bootstrap';
+import { NavItem } from 'react-bootstrap';
 import { useAppContext } from '../../components/AppContext';
-import debounce from '../../utils/debounce';
+import SearchBox from '../SearchBox';
 import config from '../../config';
 import style from './style.module.scss';
 
 const NavBar = ({ cleanUp, handleLogout }) => {
-  const { isAuthenticated, userSearchString } = useAppContext();
-  const [, setValue] = useState('');
-
-  const debounced = useCallback(
-    debounce((nextValue) => userSearchString(nextValue), config.delay),
-    [],
-  );
-
-  const handleChange = (event) => {
-    const { value: nextValue } = event.target;
-    setValue(nextValue);
-    debounced(nextValue);
-  };
-
+  const { isAuthenticated } = useAppContext();
+ 
   return (
     <Fragment>
       <div
@@ -34,15 +20,7 @@ const NavBar = ({ cleanUp, handleLogout }) => {
         {isAuthenticated
         ? <Fragment>
 
-            <Form
-            inline
-            className='pr-3'>
-              <FormControl
-              type='text'
-              placeholder='Search'
-              name='search'
-              onChange={handleChange} />
-            </Form>
+            <SearchBox />
 
             <NavItem
             className='pt-1'
