@@ -27,9 +27,21 @@ const Login = () => {
       if (input.loginEmail === 'test@test.test' &&
         input.loginPassword === 'test1234') {
           userHasAuthenticated(true);
-          const user = {
-            isAuth: true,
-          };
+          const userStorage = await asyncLocalStorage.getItem(config.keyLocalStorage);
+          let user = JSON.parse(userStorage);
+
+          if (user) {
+
+            user.isAuth = true;
+
+          } else {
+
+            user = {
+              isAuth: true,
+            };
+
+          }
+
           await asyncLocalStorage.setItem(config.keyLocalStorage, JSON.stringify(user));
           history.push(config.routes.home.url);
       } else {

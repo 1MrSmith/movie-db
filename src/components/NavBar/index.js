@@ -31,9 +31,20 @@ const NavBar = () => {
 
   const handleLogout = async () => {
     userHasAuthenticated(false);
-    const user = {
-      isAuth: false,
-    };
+    const userStorage = await asyncLocalStorage.getItem(config.keyLocalStorage);
+    let user = JSON.parse(userStorage);
+
+    if (user) {
+
+      user.isAuth = false;
+
+    } else {
+
+      user = {
+        isAuth: false,
+      };
+
+    }
     await asyncLocalStorage.setItem(config.keyLocalStorage, JSON.stringify(user));
     history.push(`${config.routes.login.url}`);
   }
