@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
+import { HorizontalBar } from 'react-chartjs-2';
 import { getPopularById } from '../../services/rest.service';
 import { useAppContext } from '../AppContext';
 import error from '../../utils/error';
@@ -55,6 +56,55 @@ const CardDetails = () => {
           className={style['section-card__description']}>
             <h2>{cardDetails.name ? cardDetails.name : cardDetails.title}</h2>
             {cardDetails.overview}
+
+            <div
+            className={style['section-card__graph']}>
+
+              <HorizontalBar data={{
+              labels: [cardDetails.name ? cardDetails.name : cardDetails.title],
+              datasets: [
+                {
+                  label: 'Rating',
+                  // eslint-disable-next-line no-sparse-arrays
+                  data: [cardDetails.vote_average],
+                  backgroundColor: 'rgba(49,64,82,0.4)',
+                  borderColor: 'rgba(70,95,122,1)',
+                  borderWidth: 1,
+                  hoverBackgroundColor: 'rgba(49,64,82,0.6)',
+                  hoverBorderColor: 'rgba(70,95,122,1)',
+                  barThickness: 50,
+                },
+              ],
+            }}
+            options={{
+              legend: {
+                labels: {
+                  fontColor: 'rgb(255,255,255)',
+                },
+              },
+              scales: {
+                xAxes: [{
+                  ticks: {
+                    fontColor: 'rgb(255,255,255)',
+                  },
+                  scaleLabel: {
+                    fontColor: 'rgb(255,255,255)',
+                  },
+                  gridLines: {
+                    color: 'transparent'
+                  },
+                }],
+                yAxes: [{
+                  ticks: {
+                    fontColor: 'rgb(255,255,255)',
+                  },
+                  gridLines: {
+                    color: 'rgb(255,255,255)',
+                  },
+                }],
+              },
+            }} />
+            </div>
           </div>
 
         </div>
