@@ -1,12 +1,18 @@
 import React, { Fragment, memo, } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useAppContext } from '../AppContext';
 import asyncLocalStorage from '../../services/local-storage.service';
 import addToBookmark from '../../utils/add-to-bookmark';
 import config from '../../config';
 import style from './style.module.scss';
 
 const Card = (props) => {
+  const { userSearchString } = useAppContext();
   const history = useHistory();
+
+  const cleanUp = () => {
+    userSearchString('');
+  }
 
   const onChange = async (event) => {
 
@@ -28,6 +34,7 @@ const Card = (props) => {
     <Fragment>
       <Link
       className={style['section-card']}
+      onClick={cleanUp}
       to={`${props.detailsUrl}/${props.id}`}>
 
         <div
