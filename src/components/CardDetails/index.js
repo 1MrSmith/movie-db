@@ -16,8 +16,16 @@ import style from './style.module.scss';
 
 const CardDetails = () => {
   const [cardDetails, setCardDetails] = useState(null);
-  const { isAuthenticated } = useAppContext();
+  const { isAuthenticated, searchString } = useAppContext();
   const history = useHistory();
+
+  useEffect(() => {
+
+    if (searchString.length > 2) {
+      history.push(`${config.routes.search.url}/${searchString}/page/1`);
+    }
+
+  }, [history, searchString]);
 
   useEffect(() => {
     const loadData = async() => {
