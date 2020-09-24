@@ -34,25 +34,22 @@ const TVShow = (props) => {
   const loadStoreData = (pageId) => Promise.all([props.loadTVShows(pageId)]);
 
   useEffect(() => {
-    const loadData = async() => {
-      try {
+    try {
 
-        if (isAuthenticated) {
-          let pageId;
-          if (params.query) {
-            pageId = 1;
-          } else {
-            pageId = params.id;
-          }
-
-          loadStoreData(pageId);
+      if (isAuthenticated) {
+        let pageId;
+        if (params.query) {
+          pageId = 1;
+        } else {
+          pageId = params.id;
         }
 
-      } catch (e) {
-        error(e);
+        loadStoreData(pageId);
       }
+
+    } catch (e) {
+      error(e);
     }
-    loadData();
 
   }, [
     params.id,
