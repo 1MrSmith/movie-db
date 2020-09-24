@@ -65,7 +65,7 @@ const TVShow = (props) => {
         className={style['page']}>
 
           <List
-          data={tvShowsList.markedVideos}
+          data={tvShowsList?.markedVideos || tvShowsList?.tvShowsList}
           detailsUrl={config.routes.tvShow.url}
           paginationUrl={config.routes.tvShow.paginationPage}
           activePage={tvShowsList.page || 1}
