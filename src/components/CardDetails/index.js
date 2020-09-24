@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import { HorizontalBar } from 'react-chartjs-2';
 import { getPopularById } from '../../services/rest.service';
@@ -18,6 +18,7 @@ const CardDetails = () => {
   const [cardDetails, setCardDetails] = useState(null);
   const { isAuthenticated, searchString } = useAppContext();
   const history = useHistory();
+  const params = useParams();
 
   useEffect(() => {
 
@@ -38,7 +39,7 @@ const CardDetails = () => {
           } else {
             type = config.typeVideos.tvShow;
           }
-          const data = await getPopularById(pathSplit[pathSplit.length - 1], type);
+          const data = await getPopularById(params.id, type);
           setCardDetails(data);
 
         }
@@ -47,7 +48,7 @@ const CardDetails = () => {
       }
     }
     loadData();
-  }, [history.location.pathname, isAuthenticated]);
+  }, [history.location.pathname, params.id, isAuthenticated]);
 
   return (
     <Fragment>
