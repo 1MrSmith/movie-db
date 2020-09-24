@@ -1,4 +1,4 @@
-const markResponseVideos = (responseVideos, bookmarkVideos = []) =>
+const markResponseVideos = (responseVideos = [], bookmarkVideos = []) =>
     responseVideos.map(
       (item) => bookmarkVideos.includes(String(item.id)) ? {...item, checked: true} : item);
 

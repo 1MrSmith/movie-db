@@ -1,32 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
-  memo,
   Fragment,
   useEffect,
 } from 'react';
+import { connect } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
+import { loadTVShows } from '../../store/tv-show';
 import { useAppContext } from '../AppContext';
 import { useHistory, useParams } from 'react-router-dom';
-import { getPopular } from '../../services/rest.service';
-import markResponseVideos from '../../utils/mark-response-videos';
-import asyncLocalStorage from '../../services/local-storage.service';
 import config from '../../config';
 import error from '../../utils/error';
 import List from '../List';
 import style from './style.module.scss';
 
-const TVShow = () => {
+const TVShow = (props) => {
   const {
-    tvs,
-    setTvs,
-    tvPages,
-    isLoading,
-    setTvPages,
     searchString,
-    setIsLoading,
     isAuthenticated,
   } = useAppContext();
+
   const history = useHistory();
   const params = useParams();
+  const { tvShowsList, isLoading, } = props.tvShowsList;
 
   useEffect(() => {
 
@@ -36,13 +31,13 @@ const TVShow = () => {
 
   }, [history, searchString]);
 
+  const loadStoreData = (pageId) => Promise.all([props.loadTVShows(pageId)]);
+
   useEffect(() => {
     const loadData = async() => {
       try {
 
         if (isAuthenticated) {
-          setIsLoading(true);
-
           let pageId;
           if (params.query) {
             pageId = 1;
@@ -50,36 +45,19 @@ const TVShow = () => {
             pageId = params.id;
           }
 
-          const userStorage = await asyncLocalStorage.getItem(config.keyLocalStorage);
-          const user = JSON.parse(userStorage);
-
-          const data = await getPopular(pageId, config.typeVideos.tvShow);
-
-          const markedVideos = markResponseVideos(data.results, user?.tvShowLibrary);
-
-          setTvs(markedVideos);
-          setTvPages({
-            page: data.page,
-            totalPage: data.total_pages,
-          });
-
+          loadStoreData(pageId);
         }
-
-        setIsLoading(false);
 
       } catch (e) {
         error(e);
-        setIsLoading(false);
       }
     }
     loadData();
 
   }, [
-    setTvs,
     params.id,
-    setTvPages,
+    isLoading,
     params.query,
-    setIsLoading,
     isAuthenticated,
   ]);
 
@@ -90,11 +68,11 @@ const TVShow = () => {
         className={style['page']}>
 
           <List
-          data={tvs}
+          data={tvShowsList.markedVideos}
           detailsUrl={config.routes.tvShow.url}
           paginationUrl={config.routes.tvShow.paginationPage}
-          activePage={tvPages.page}
-          totalPage={tvPages.totalPage}
+          activePage={tvShowsList.page || 1}
+          totalPage={tvShowsList.total_pages || 1}
           typeVideo={config.typeVideos.tvShow} />
 
         </div>
@@ -114,4 +92,12 @@ const TVShow = () => {
   );
 }
 
-export default memo(TVShow);
+const mapStateToProps = (state) => ({
+  tvShowsList: state.tvShowsReducer,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadTVShows: (payLoad) => dispatch(loadTVShows(payLoad)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TVShow);
